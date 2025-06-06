@@ -13,6 +13,7 @@ public class EditorUI : MonoBehaviour
     public List<SaveBlockData> currentBlocks = new List<SaveBlockData>();
 
     public GameObject buttonPrefab;
+    public InputField mapNameInput;
     public Transform buttonSpawnPrefab;
     public BlockDataList blockDataList;
 
@@ -20,7 +21,6 @@ public class EditorUI : MonoBehaviour
 
     Vector3 realPos;
     public int currentBlockIndex;
-
 
     void Start()
     {
@@ -81,14 +81,24 @@ public class EditorUI : MonoBehaviour
         }
     }
 
+  
+
     public void OnSaveButton()
     {
+        currentMapData.mapName = mapNameInput.text;
         currentMapData.blocks = currentBlocks.ToArray();
         Debug.Log($"Map Name: {currentMapData.mapName}, Map Desc: {currentMapData.mapDesc}");
         Debug.Log($"Total Blocks: {currentMapData.blocks.Length}");
 
         string jsonData = JsonUtility.ToJson(currentMapData);
-        string path = Path.Combine(Application.dataPath, "playerData.json");
+
+        string folderPath = Path.Combine(Application.dataPath, "Resources", "Maps");
+        if (!Directory.Exists(folderPath))
+            Directory.CreateDirectory(folderPath);
+
+
+        string fileName = currentMapData.mapName + ".json";
+        string path = Path.Combine(folderPath, fileName);
         File.WriteAllText(path, jsonData);
     }
 
