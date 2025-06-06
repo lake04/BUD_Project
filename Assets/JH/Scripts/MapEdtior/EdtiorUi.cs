@@ -17,10 +17,12 @@ public class EditorUI : MonoBehaviour
     public Transform buttonSpawnPrefab;
     public BlockDataList blockDataList;
 
-    public SpriteRenderer pointerButton;
+    public GameObject pointerButton;
 
     Vector3 realPos;
     public int currentBlockIndex;
+
+  
 
     void Start()
     {
@@ -29,6 +31,9 @@ public class EditorUI : MonoBehaviour
             mapName = "New Map",
             mapDesc = "This is a new map."
         };
+
+        pointerButton = Instantiate(pointerButton);
+
 
         foreach (var blockData in blockDataList.data)
         {
@@ -59,29 +64,63 @@ public class EditorUI : MonoBehaviour
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
         realPos = new Vector3(Mathf.RoundToInt(mousePos.x), Mathf.RoundToInt(mousePos.y), 0);
-        pointerButton.gameObject.transform.position = realPos;
+        pointerButton.transform.position = realPos;
     }
 
     public void OnSpawnButton()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GameObject blockPrefab = Instantiate(blockDataList.data[currentBlockIndex].prefab, realPos, pointerButton.gameObject.transform.rotation);
-            currentBlocks.Add(new SaveBlockData
+            RaycastHit2D hit = Physics2D.Raycast(realPos, Vector2.zero);
+            Debug.Log($"{hit.collider.tag}");
+            if (hit.collider != null && hit.collider.CompareTag("Grid"))
             {
-                blockID = currentBlockIndex,
-                position = new Vector3Serial(realPos.x, realPos.y, 0),
-                rotation = new Vector3Serial(pointerButton.transform.rotation.x, pointerButton.transform.rotation.y, pointerButton.transform.rotation.z)
-            });
+                    GameObject blockPrefab = Instantiate(
+                        blockDataList.data[currentBlockIndex].prefab,
+                        realPos,
+                        pointerButton.transform.rotation
+                    );
+
+
+                    currentBlocks.Add(new SaveBlockData
+                    {
+                        blockID = currentBlockIndex,
+                        position = new Vector3Serial(realPos.x, realPos.y, 0),
+                        rotation = new Vector3Serial(
+                            pointerButton.transform.rotation.eulerAngles.x,
+                            pointerButton.transform.rotation.eulerAngles.y,
+                            pointerButton.transform.rotation.eulerAngles.z
+                        )
+                    });
+            }
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(realPos, Vector2.zero);
+            if (hit.collider != null && hit.collider.CompareTag("Block"))
+            {
+                Vector3 pos = hit.collider.transform.position;
+                Destroy(hit.collider.gameObject);
+
+                currentBlocks.RemoveAll(b =>
+                    Mathf.Approximately(b.position.x, pos.x) &&
+                    Mathf.Approximately(b.position.y, pos.y)
+                );
+
+                Debug.Log($"∫Ì∑œ ªË¡¶µ  at {pos}");
+            }
+        }
+
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            pointerButton.gameObject.transform.Rotate(0, 0, 90);
+            pointerButton.gameObject.transform.Rotate(0, 0, 45);
         }
     }
 
-  
+
+
 
     public void OnSaveButton()
     {
@@ -106,5 +145,6 @@ public class EditorUI : MonoBehaviour
     {
         Debug.Log($"Click On : {blockData.name}");
         currentBlockIndex = blockDataList.data.ToList().IndexOf(blockData);
+        pointerButton.GetComponent<SpriteRenderer>().sprite = blockData.image;
     }
 }
