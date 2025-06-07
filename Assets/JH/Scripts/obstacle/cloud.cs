@@ -6,7 +6,7 @@ public class cloud : MonoBehaviour
 {
     [SerializeField] private GameObject effect;
 
-    private bool isSlowing;
+    private bool isSlowing = false;
 
     void Start()
     {
@@ -24,6 +24,7 @@ public class cloud : MonoBehaviour
         {
             if(isSlowing == false)
             {
+                Debug.Log("이속 저하");
                 StartCoroutine(SlowDown(collision));
 
             }
@@ -34,11 +35,11 @@ public class cloud : MonoBehaviour
     {
         if(isSlowing == false)
         {
-            collision.GetComponent<Player>().moveSpeed -= 2;
+            collision.GetComponent<Player>().moveSpeed -= 0.6f;
             isSlowing = true;
         }
         yield return new WaitForSeconds(0.4f);
         isSlowing = true;
-        collision.GetComponent <Player>().moveSpeed += 2;
+        collision.GetComponent <Player>().moveSpeed += 0.6f;
     }
 }

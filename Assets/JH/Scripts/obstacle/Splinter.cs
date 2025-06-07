@@ -19,6 +19,7 @@ public class Splinter : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("GameOver");
             SceneController.Instance.TitleLoad();
         }
     }
