@@ -401,10 +401,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e66b39ed0dab546a684cb9286523a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentMapData:
+    mapName: 
+    mapDesc: 
+    blocks: []
+  currentBlocks: []
   buttonPrefab: {fileID: 8696072677709656509, guid: 4c15f487aa712cb4e958eeea6c43eecc, type: 3}
   mapNameInput: {fileID: 2013022701}
   buttonSpawnPrefab: {fileID: 9127332004488357408}
-  blockDataList: {fileID: 11400000, guid: 929d7eb8a471f8543a4a458c9776215a, type: 2}
+  blockDataList: {fileID: 11400000, guid: ab1339e43ebb2c947ab85320006e1b4e, type: 2}
   pointerButton: {fileID: 301172323159526274, guid: f8126403175ad8e46b6d331234e3d9cb, type: 3}
   currentBlockIndex: 0
 --- !u!4 &1303004086

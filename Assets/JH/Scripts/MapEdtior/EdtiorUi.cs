@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
 public class EditorUI : MonoBehaviour
 {
     public MapDatas currentMapData;
@@ -76,6 +77,7 @@ public class EditorUI : MonoBehaviour
             if (hit.collider != null && hit.collider.CompareTag("Grid"))
             {
                     GameObject blockPrefab = Instantiate(
+                        
                         blockDataList.data[currentBlockIndex].prefab,
                         realPos,
                         pointerButton.transform.rotation
@@ -108,7 +110,7 @@ public class EditorUI : MonoBehaviour
                     Mathf.Approximately(b.position.y, pos.y)
                 );
 
-                Debug.Log($"블록 삭제됨 at {pos}");
+                Debug.Log($"{pos} 블록 삭제 ");
             }
         }
 
@@ -118,8 +120,6 @@ public class EditorUI : MonoBehaviour
             pointerButton.gameObject.transform.Rotate(0, 0, 45);
         }
     }
-
-
 
 
     public void OnSaveButton()

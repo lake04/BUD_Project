@@ -6,6 +6,7 @@ public class cloud : MonoBehaviour
 {
     [SerializeField] private GameObject effect;
 
+    private bool isSlowing;
 
     void Start()
     {
@@ -21,7 +22,23 @@ public class cloud : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //이거는 태민이가 플레이어 작업 하면 추가함
+            if(isSlowing == false)
+            {
+                StartCoroutine(SlowDown(collision));
+
+            }
         }
+    }
+
+    private IEnumerator SlowDown(Collider2D collision)
+    {
+        if(isSlowing == false)
+        {
+            collision.GetComponent<Player>().moveSpeed -= 2;
+            isSlowing = true;
+        }
+        yield return new WaitForSeconds(0.4f);
+        isSlowing = true;
+        collision.GetComponent <Player>().moveSpeed += 2;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[System.Serializable]
 public class Vector3Serial
 {
     public float x;
@@ -18,10 +18,11 @@ public class Vector3Serial
 
     public Vector3 ToVector3()
     {
-        return new Vector3(x,y,z);
+        return new Vector3(x, y, z);
     }
 }
 
+[System.Serializable]
 public class SaveBlockData
 {
     public int blockID;
@@ -29,10 +30,10 @@ public class SaveBlockData
     public Vector3Serial rotation;
 }
 
+[System.Serializable]
 public class MapDatas
 {
     public string mapName;
     public string mapDesc;
     public SaveBlockData[] blocks;
-
 }
