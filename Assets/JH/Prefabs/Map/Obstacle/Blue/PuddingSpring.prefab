@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1745245323193141508}
   - component: {fileID: 2631235452436362389}
   - component: {fileID: 9009171427676614766}
+  - component: {fileID: -6668098876162292931}
   m_Layer: 0
   m_Name: PuddingSpring
   m_TagString: Block
@@ -148,3 +149,16 @@ CircleCollider2D:
   m_Offset: {x: 0.04, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-6668098876162292931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784878701573972437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f852d9e2aa99b5448579aab4c662f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceForce: 30

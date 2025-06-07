@@ -2,36 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cloud : MonoBehaviour
+public class SlowObstacle : MonoBehaviour
 {
-    [SerializeField] private GameObject effect;
-
     public bool isSlowing = false;
-
-    void Start()
-    {        if (MapManager.Instance.isEditorMode == true)
-        {
-            effect.SetActive(false);
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
-        }
-        else
-        {
-            effect.SetActive(true);
-            gameObject.GetComponent<BoxCollider2D>().enabled = true;
-        }
-    
-    }
-
-    void Update()
-    {
-
-    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if(isSlowing == false)
+            if (isSlowing == false)
             {
                 Debug.Log("이속 저하");
                 StartCoroutine(SlowDown(collision));
@@ -41,13 +20,13 @@ public class cloud : MonoBehaviour
 
     private IEnumerator SlowDown(Collider2D collision)
     {
-        if(isSlowing == false)
+        if (isSlowing == false)
         {
             collision.GetComponent<Player>().moveSpeed -= 0.6f;
             isSlowing = true;
         }
         yield return new WaitForSeconds(1f);
         isSlowing = false;
-        collision.GetComponent <Player>().moveSpeed += 0.6f;
+        collision.GetComponent<Player>().moveSpeed += 0.6f;
     }
 }

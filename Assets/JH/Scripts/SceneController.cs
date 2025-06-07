@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -41,13 +40,14 @@ public class SceneController : MonoBehaviour
 
     public void EdtiorLoad()
     {
+        MapManager.Instance.isEditorMode = true;
         SceneLoad(2);
     }
 
     public void Quit()
     {
-        UnityEditor.EditorApplication.isPlaying = false;
-        Application.OpenURL("http://google.com");
+        //UnityEditor.EditorApplication.isPlaying = false;
+        //Application.OpenURL("http://google.com");
         Application.Quit();
     }
 

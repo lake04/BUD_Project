@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1745245323193141508}
   - component: {fileID: 2631235452436362389}
   - component: {fileID: 9009171427676614766}
-  - component: {fileID: 4777313274537705149}
+  - component: {fileID: 5188875414893943982}
   m_Layer: 0
   m_Name: BlueBouncePad
   m_TagString: Block
@@ -149,28 +149,16 @@ CircleCollider2D:
   m_Offset: {x: 0.04, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!233 &4777313274537705149
-HingeJoint2D:
+--- !u!114 &5188875414893943982
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784878701573972437}
   m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 2.9, y: -1.8}
-  m_UseMotor: 0
-  m_Motor:
-    m_MotorSpeed: 0
-    m_MaximumMotorForce: 10000
-  m_UseLimits: 0
-  m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 359
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f852d9e2aa99b5448579aab4c662f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceForce: 30

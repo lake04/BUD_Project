@@ -10,12 +10,6 @@ public class BlockData
     public string name;
 }
 
-public enum BlockType
-{
-    
-    Obstacle1 = 0,
-    Obstacle2 = 1,
-}
 
 [CreateAssetMenu(fileName = "BlockDataList", menuName = "ScriptableObjects/BlockDataList", order = 1)]
 public class BlockDataList : ScriptableObject
