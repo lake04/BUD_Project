@@ -25,9 +25,8 @@ public class EditorUI : MonoBehaviour
 
     public Vector3Serial startPos;
     private bool isSettingStartPosition; 
-    public GameObject startPositionMarkerPrefab; 
-    private GameObject currentStartPositionMarker;
 
+    private List<GameObject> instantiatedEditorBlocks = new List<GameObject>();
 
     private void Awake()
     {
@@ -111,7 +110,10 @@ public class EditorUI : MonoBehaviour
                 pointerButton.transform.rotation
                  );
 
-                currentBlocks.Add(new SaveBlockData
+            instantiatedEditorBlocks.Add(blockPrefab);
+
+
+            currentBlocks.Add(new SaveBlockData
                 {
                     blockID = currentBlockIndex,
                     position = new Vector3Serial(realPos.x, realPos.y, 0),
@@ -131,6 +133,7 @@ public class EditorUI : MonoBehaviour
             if (hit.collider != null && hit.collider.CompareTag("Block"))
             {
                 Vector3 pos = hit.collider.transform.position;
+                instantiatedEditorBlocks.Remove(hit.collider.gameObject);
                 Destroy(hit.collider.gameObject);
 
                 currentBlocks.RemoveAll(b =>
@@ -150,31 +153,89 @@ public class EditorUI : MonoBehaviour
     }
 
 
-    public void OnSaveButton()
+    public void LoadMapButton()
     {
-        currentMapData.mapName = mapNameInput.text;
-        currentMapData.blocks = currentBlocks.ToArray();
-   
+        // 1. mapNameInput 필드에서 사용자가 입력한 맵 이름을 가져옵니다.
+        string mapNameToLoad = mapNameInput.text;
 
-        Debug.Log($"Map Name: {currentMapData.mapName}, Map Desc: {currentMapData.mapDesc}");
-        Debug.Log($"Total Blocks: {currentMapData.blocks.Length}");
+        if (string.IsNullOrWhiteSpace(mapNameToLoad))
+        {
+            Debug.LogWarning("맵 이름을 입력해주세요!");
+            return;
+        }
 
-        string jsonData = JsonUtility.ToJson(currentMapData, true);
-        PlayerPrefs.SetString("List<SaveBlockData>", jsonData);
-        PlayerPrefs.Save();
-        string folderPath = Path.Combine(Application.persistentDataPath, "Resources", "Maps");
-        if (!Directory.Exists(folderPath))
-            Directory.CreateDirectory(folderPath);
+        string mapsFolderPath = Path.Combine(Application.persistentDataPath, "Resources", "Maps");
+        if (!Directory.Exists(mapsFolderPath))
+        {
+            Debug.LogWarning($"맵 파일 폴더가 존재하지 않습니다: {mapsFolderPath}");
+            return;
+        }
 
+        // 2. 입력된 맵 이름에 해당하는 JSON 파일 경로를 만듭니다.
+        // 저장할 때 ".json" 확장자를 붙였으므로, 로드할 때도 붙여줘야 합니다.
+        string selectedMapFilePath = Path.Combine(mapsFolderPath, mapNameToLoad + ".json");
 
-        string fileName = currentMapData.mapName + ".json";
-        string path = Path.Combine(folderPath, fileName);
-        File.WriteAllText(path, jsonData);
+        // 3. 해당 파일이 실제로 존재하는지 확인합니다.
+        if (!File.Exists(selectedMapFilePath))
+        {
+            Debug.LogWarning($"'{mapNameToLoad}.json' 맵 파일을 찾을 수 없습니다. 경로: {selectedMapFilePath}");
+            return;
+        }
 
-        Debug.Log("저장 경로: " + path);
-       
-        SceneController.Instance.TitleLoad();
+        string jsonText = File.ReadAllText(selectedMapFilePath); // 파일에서 JSON 텍스트 읽기
+
+        MapDatas loadedMap = JsonUtility.FromJson<MapDatas>(jsonText);
+        Debug.Log($"불러온 맵: {loadedMap.mapName} (파일 경로: {selectedMapFilePath})");
+
+        // --- 여기서부터 기존 에디터 블록을 지우고 새 맵을 로드하는 핵심 로직입니다. ---
+
+        // 1. 기존에 에디터에 인스턴스화된 모든 블록 게임 오브젝트들을 파괴합니다.
+        foreach (GameObject block in instantiatedEditorBlocks)
+        {
+            Destroy(block);
+        }
+        instantiatedEditorBlocks.Clear(); // 리스트도 비워줍니다.
+        currentBlocks.Clear(); // 현재 블록 데이터 리스트도 비워줍니다.
+
+        // 2. 불러온 맵 데이터로 currentMapData 및 mapNameInput 업데이트
+        currentMapData = loadedMap;
+        mapNameInput.text = loadedMap.mapName; // 실제 불러온 맵의 이름으로 InputField 업데이트
+
+        // 3. 불러온 맵 데이터(loadedMap.blocks)를 바탕으로 실제 블록들을 에디터 씬에 생성합니다.
+        if (loadedMap.blocks != null)
+        {
+            foreach (var block in loadedMap.blocks)
+            {
+                if (block.blockID < 0 || block.blockID >= blockDataList.data.Length)
+                {
+                    Debug.LogWarning($"유효하지 않은 블록 ID: {block.blockID}. 해당 블록은 스킵됩니다.");
+                    continue;
+                }
+
+                GameObject prefab = blockDataList.data[block.blockID].prefab;
+                if (prefab == null)
+                {
+                    Debug.LogWarning($"블록 ID {block.blockID}에 해당하는 프리팹이 BlockDataList에 할당되지 않았습니다.");
+                    continue;
+                }
+
+                Vector3 position = block.position.ToVector3();
+                Quaternion rotation = Quaternion.Euler(block.rotation.ToVector3());
+
+                // 블록을 인스턴스화하고 추적 리스트에 추가
+                GameObject instantiatedBlock = Instantiate(prefab, position, rotation);
+                instantiatedEditorBlocks.Add(instantiatedBlock);
+                currentBlocks.Add(block); // currentBlocks에도 다시 추가하여 저장 시 반영되도록 함
+            }
+            Debug.Log($"'{loadedMap.mapName}' 맵을 에디터에 성공적으로 불러왔습니다.");
+        }
+        else
+        {
+            Debug.LogWarning("불러온 맵 데이터에 블록 정보가 없습니다.");
+        }
     }
+
+
 
     void OnSelectClick(BlockData blockData)
     {

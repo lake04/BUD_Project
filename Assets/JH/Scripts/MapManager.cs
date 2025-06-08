@@ -58,7 +58,7 @@ public class MapManager : MonoBehaviour
     {
       
         string mapsFolderPath = Path.Combine(Application.persistentDataPath, "Resources", "Maps");
-        Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
+        Instantiate(player, new Vector3(3, 0, 0), Quaternion.identity);
         if (!Directory.Exists(mapsFolderPath))
         {
             Debug.LogWarning($"맵 파일 폴더가 존재하지 않습니다: {mapsFolderPath}");
