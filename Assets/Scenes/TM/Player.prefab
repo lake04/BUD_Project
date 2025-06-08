@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 3776561308392022982}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -312,5 +312,6 @@ MonoBehaviour:
   maxFallingSpeed: 20
   cam: {fileID: 0}
   trail: {fileID: 5694092342891948124}
+  portal: {fileID: 0}
   superDownParticle: {fileID: 3558660010879007009, guid: a10d2fd68fd53d0429d90881b9bda4a3, type: 3}
   groundParticle: {fileID: 6571830663303983230, guid: 52fbe24655b546e4bb49a7741b93bcc1, type: 3}

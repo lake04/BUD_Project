@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     public Cam cam;
     public TrailRenderer trail;
 
-    public Portal portal;
+    //public Portal portal;
 
     [Header("ÆÄÆ¼Å¬")]
     public GameObject superDownParticle;
@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     {
         cam = Cam.camInstance.GetComponent<Cam>();
 
-        portal = Portal.portalInstance.GetComponent<Portal>();
+        //portal = Portal.portalInstance.GetComponent<Portal>();
 
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
@@ -105,7 +105,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Portal1"))
         {
-            transform.position = portal.portal2.position;
+            //transform.position = portal.portal2.position;
         }
     }
 }
