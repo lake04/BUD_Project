@@ -39,6 +39,7 @@ public class SceneController : MonoBehaviour
     {
         MapManager.Instance.isEditorMode = true;
         SceneLoad(0);
+        MapManager.Instance.parentForBlocks.gameObject.SetActive(false);
     }
 
     public void EdtiorLoad()

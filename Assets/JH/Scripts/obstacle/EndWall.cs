@@ -21,6 +21,7 @@ public class EndWall : MonoBehaviour
         {
             Debug.Log("게임 클리어");
             SceneController.Instance.TitleLoad();
+           
         }
 
     }

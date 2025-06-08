@@ -44,19 +44,29 @@ public class Cam : MonoBehaviour
 
         
     }
+    private void Update()
+    {
+        if(playerObj == null)
+        {
+            playerObj = FindObjectOfType<Player>().gameObject;
+        }
+    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (usingShake == false)
+        if (playerObj != null)
         {
-            Vector3 dir;
-            Vector3 moveVector;
+            if (usingShake == false)
+            {
+                Vector3 dir;
+                Vector3 moveVector;
 
 
-            dir = (playerObj.transform.position + playerObj.transform.position) / 2 - this.transform.position;
-            moveVector = new Vector3(dir.x * cameraSpeed * Time.deltaTime, dir.y * cameraSpeed * Time.deltaTime, 0.0f);
-            this.transform.Translate(moveVector);
+                dir = (playerObj.transform.position + playerObj.transform.position) / 2 - this.transform.position;
+                moveVector = new Vector3(dir.x * cameraSpeed * Time.deltaTime, dir.y * cameraSpeed * Time.deltaTime, 0.0f);
+                this.transform.Translate(moveVector);
+            }
         }
     }
     public void Shaking(float parametersShakeTime) // 0.35는 작은 쉐이크 and 0.7은 큰 쉐이크
