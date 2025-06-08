@@ -7,6 +7,9 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spr;
 
+    [Header("물리")]
+    //public PhysicsMaterial2D pysic;
+
     [Header("이동")]
     public float moveSpeed;
     public float maxMoveSpeed;
@@ -18,6 +21,8 @@ public class Player : MonoBehaviour
     public Cam cam;
     public TrailRenderer trail;
 
+    public Portal portal;
+
     [Header("파티클")]
     public GameObject superDownParticle;
     public GameObject groundParticle;
@@ -25,6 +30,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         cam = Cam.camInstance.GetComponent<Cam>();
+
+        portal = Portal.portalInstance.GetComponent<Portal>();
+
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
     }
@@ -66,10 +74,38 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         isSuperDown = false;
-        if (rb.velocity.y > 13)
+        
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            cam.Shaking(0.5f);
+            if (rb.velocity.y > 14)
+            {
+                cam.Shaking(0.5f);
+                GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
+                //pysic.bounciness = 0.9f;
+            }
+            else if (rb.velocity.y > 12)
+            {
+                cam.Shaking(0.2f);
+                GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
+                //pysic.bounciness = 0.9f;
+            }
+            else
+            {
+                //pysic.bounciness = 0;
+            }
+        }
+        if (collision.gameObject.CompareTag("Spike"))
+        {
+            Destroy(gameObject);
             GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
+        }
+        //rb.sharedMaterial = pysic;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Portal1"))
+        {
+            transform.position = portal.portal2.position;
         }
     }
 }
