@@ -151,6 +151,31 @@ public class EditorUI : MonoBehaviour
             pointerButton.gameObject.transform.Rotate(0, 0, 45);
         }
     }
+    public void OnSaveButton()
+    {
+        currentMapData.mapName = mapNameInput.text;
+        currentMapData.blocks = currentBlocks.ToArray();
+
+
+        Debug.Log($"Map Name: {currentMapData.mapName}, Map Desc: {currentMapData.mapDesc}");
+        Debug.Log($"Total Blocks: {currentMapData.blocks.Length}");
+
+        string jsonData = JsonUtility.ToJson(currentMapData, true);
+        PlayerPrefs.SetString("List<SaveBlockData>", jsonData);
+        PlayerPrefs.Save();
+        string folderPath = Path.Combine(Application.persistentDataPath, "Resources", "Maps");
+        if (!Directory.Exists(folderPath))
+            Directory.CreateDirectory(folderPath);
+
+
+        string fileName = currentMapData.mapName + ".json";
+        string path = Path.Combine(folderPath, fileName);
+        File.WriteAllText(path, jsonData);
+
+        Debug.Log("저장 경로: " + path);
+
+        SceneController.Instance.TitleLoad();
+    }
 
 
     public void LoadMapButton()
