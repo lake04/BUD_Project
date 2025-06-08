@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Splinter : MonoBehaviour
+public class EndWall : MonoBehaviour
 {
-  
     void Start()
     {
         
@@ -19,9 +19,9 @@ public class Splinter : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("GameOver");
+            Debug.Log("게임 클리어");
             SceneController.Instance.TitleLoad();
         }
+
     }
-    
 }

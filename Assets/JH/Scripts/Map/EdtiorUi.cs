@@ -23,12 +23,17 @@ public class EditorUI : MonoBehaviour
     Vector3 realPos;
     public int currentBlockIndex;
 
+    public Vector3Serial startPos;
+    private bool isSettingStartPosition; 
+    public GameObject startPositionMarkerPrefab; 
+    private GameObject currentStartPositionMarker;
+
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(Instance);
         }
         else
         {
@@ -46,6 +51,7 @@ public class EditorUI : MonoBehaviour
 
         pointerButton = Instantiate(pointerButton);
 
+    
 
         foreach (var blockData in blockDataList.data)
         {
@@ -54,8 +60,8 @@ public class EditorUI : MonoBehaviour
             tempObj.GetComponentInChildren<Image>().sprite = blockData.image;
             tempObj.GetComponentInChildren<Text>().text = blockData.name;
         }
-        if (blockDataList == null) Debug.Log("스크릅터블 오브젝트가 없음");
-     }
+        if (blockDataList == null) Debug.Log("스크립터블 오브젝트가 없음");
+    }
 
     private void Update()
     {
@@ -85,33 +91,39 @@ public class EditorUI : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(realPos, Vector2.zero);
-            foreach (SaveBlockData pos in currentBlocks)
+            if (hit.collider == null ||!hit.collider.CompareTag("Grid")  )
             {
-                if (new Vector3(pos.position.x, pos.position.y, pos.position.z) == realPos)
-                {
-                    return;
-                }
+                return;
             }
+                foreach (SaveBlockData pos in currentBlocks)
+                {
+                    if (new Vector3(pos.position.x, pos.position.y, pos.position.z) == realPos)
+                    {
+                        return;
+                    }
+                }
 
-            GameObject blockPrefab = Instantiate(
+
+                GameObject blockPrefab = Instantiate(
 
                 blockDataList.data[currentBlockIndex].prefab,
                 realPos,
                 pointerButton.transform.rotation
-            );
+                 );
+
+                currentBlocks.Add(new SaveBlockData
+                {
+                    blockID = currentBlockIndex,
+                    position = new Vector3Serial(realPos.x, realPos.y, 0),
+                    rotation = new Vector3Serial(
+                   pointerButton.transform.rotation.eulerAngles.x,
+                   pointerButton.transform.rotation.eulerAngles.y,
+                   pointerButton.transform.rotation.eulerAngles.z
+                 )
+                });
 
 
-            currentBlocks.Add(new SaveBlockData
-            {
-                blockID = currentBlockIndex,
-                position = new Vector3Serial(realPos.x, realPos.y, 0),
-                rotation = new Vector3Serial(
-                    pointerButton.transform.rotation.eulerAngles.x,
-                    pointerButton.transform.rotation.eulerAngles.y,
-                    pointerButton.transform.rotation.eulerAngles.z
-                )
-            });
-        }
+    }
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -142,11 +154,14 @@ public class EditorUI : MonoBehaviour
     {
         currentMapData.mapName = mapNameInput.text;
         currentMapData.blocks = currentBlocks.ToArray();
+   
+
         Debug.Log($"Map Name: {currentMapData.mapName}, Map Desc: {currentMapData.mapDesc}");
         Debug.Log($"Total Blocks: {currentMapData.blocks.Length}");
 
-        string jsonData = JsonUtility.ToJson(currentMapData,true);
-
+        string jsonData = JsonUtility.ToJson(currentMapData, true);
+        PlayerPrefs.SetString("List<SaveBlockData>", jsonData);
+        PlayerPrefs.Save();
         string folderPath = Path.Combine(Application.persistentDataPath, "Resources", "Maps");
         if (!Directory.Exists(folderPath))
             Directory.CreateDirectory(folderPath);
@@ -157,6 +172,8 @@ public class EditorUI : MonoBehaviour
         File.WriteAllText(path, jsonData);
 
         Debug.Log("저장 경로: " + path);
+       
+        SceneController.Instance.TitleLoad();
     }
 
     void OnSelectClick(BlockData blockData)

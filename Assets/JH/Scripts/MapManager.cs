@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class MapManager : MonoBehaviour
     public static MapManager Instance;
     public BlockDataList blockDataList; 
     public Transform parentForBlocks;
+    public GameObject player;
 
     public bool isEditorMode;
 
@@ -29,14 +31,34 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-        LoadRandomMap();
+  
+    }
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+
+    private void OnSceneLoaded(Scene scen, LoadSceneMode mode)
+    {
+        if (isEditorMode == false)
+        {
+            LoadRandomMap();
+            TestLoad();
+        }
+    }
+
+    public List<SaveBlockData> TestLoad()
+    {
+        string json = PlayerPrefs.GetString("List<SaveBlockData>", "{ }");
+        return JsonUtility.FromJson<List<SaveBlockData>>(json);
     }
 
     public void LoadRandomMap()
     {
       
         string mapsFolderPath = Path.Combine(Application.persistentDataPath, "Resources", "Maps");
-
+        Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
         if (!Directory.Exists(mapsFolderPath))
         {
             Debug.LogWarning($"맵 파일 폴더가 존재하지 않습니다: {mapsFolderPath}");

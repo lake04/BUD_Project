@@ -31,10 +31,13 @@ public class SceneController : MonoBehaviour
 
     public void GameStart()
     {
+        MapManager.Instance.isEditorMode = false;
         SceneLoad(1);
+       
     }
     public void TitleLoad()
     {
+        MapManager.Instance.isEditorMode = true;
         SceneLoad(0);
     }
 

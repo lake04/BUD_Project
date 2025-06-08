@@ -28,6 +28,7 @@ public class SaveBlockData
     public int blockID;
     public Vector3Serial position;
     public Vector3Serial rotation;
+    public Vector3Serial startPosition;
 }
 
 [System.Serializable]
