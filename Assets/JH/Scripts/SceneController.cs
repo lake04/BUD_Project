@@ -12,7 +12,6 @@ public class SceneController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -32,7 +31,7 @@ public class SceneController : MonoBehaviour
     public void GameStart()
     {
         MapManager.Instance.isEditorMode = false;
-        SceneLoad(1);
+        CircleEffect.instance.LoadScene(1);
        
     }
     public void TitleLoad()
@@ -45,7 +44,7 @@ public class SceneController : MonoBehaviour
     public void EdtiorLoad()
     {
         MapManager.Instance.isEditorMode = true;
-        SceneLoad(2);
+        CircleEffect.instance.LoadScene(2);
     }
 
     public void Quit()

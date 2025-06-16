@@ -18,7 +18,7 @@ MonoBehaviour:
     name: BlueWall
     description: "\uAE30\uBCF8 \uD30C\uB780\uC0C9 \uBCBD\uC785\uB2C8\uB2E4."
   - image: {fileID: 21300000, guid: 7c8eee4c049be1445ab61957886a9c72, type: 3}
-    prefab: {fileID: 2134833734499872933, guid: e81ea4fe8fa744249b48f15890dc2bdf, type: 3}
+    prefab: {fileID: 2134833734499872933, guid: 3ec36d358a380574488dedfbe12175c0, type: 3}
     name: BlueCornerWall
     description: 
   - image: {fileID: 21300000, guid: 4280369835179b14da1f1fbb67801ccb, type: 3}

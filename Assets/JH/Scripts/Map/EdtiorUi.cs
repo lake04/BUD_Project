@@ -48,7 +48,6 @@ public class EditorUI : MonoBehaviour
     void Start()
     {
         Init();
-        description.text = blockDataList.data[0].description;
     }
 
     private void Update()
@@ -255,7 +254,6 @@ public class EditorUI : MonoBehaviour
         File.WriteAllText(path, jsonData);
 
         Debug.Log("저장 경로: " + path);
-        SceneController.Instance.TitleLoad();
     }
 
 
@@ -339,6 +337,11 @@ public class EditorUI : MonoBehaviour
         {
             Debug.LogWarning("불러온 맵 데이터에 블록 정보가 없습니다.");
         }
+    }
+
+    public void OnClickTitle()
+    {
+        SceneController.Instance.TitleLoad();
     }
 
 
