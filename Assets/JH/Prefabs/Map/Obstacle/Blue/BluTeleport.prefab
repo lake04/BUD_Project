@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1710620328853266210}
   - component: {fileID: 7489737126310147672}
   - component: {fileID: 7012302102231941058}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BluTeleport
   m_TagString: Block
   m_Icon: {fileID: 0}

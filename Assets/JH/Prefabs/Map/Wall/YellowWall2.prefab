@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4208097472780318627}
   - component: {fileID: 4281726158013646609}
   - component: {fileID: 6546276195701020755}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: YellowWall2
   m_TagString: Block
   m_Icon: {fileID: 0}

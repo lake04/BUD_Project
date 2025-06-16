@@ -8,6 +8,7 @@ public class BlockData
     public Sprite image;
     public GameObject prefab;
     public string name;
+    public string description;
 }
 
 

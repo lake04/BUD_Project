@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1371037019934448809}
   - component: {fileID: 717639063399103728}
   - component: {fileID: -7593522755532113827}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlueSlowObstacle
   m_TagString: Block
   m_Icon: {fileID: 0}

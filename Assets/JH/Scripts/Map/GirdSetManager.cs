@@ -9,6 +9,7 @@ public class GirdSetManager : MonoBehaviour
     public int height;
 
     public static GirdSetManager instance = null;
+    
 
     void Awake()
     {
@@ -24,15 +25,26 @@ public class GirdSetManager : MonoBehaviour
 
     void Start()
     {
-        gridSprite = GetComponent<SpriteRenderer>();
-        gridSprite.size = new Vector2(width, height);
-        this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
-
-        gridSprite.transform.position = new Vector3((width/2) - 0.5f, -(height/2) + 0.5f,0);
+        Init();
     }
 
     void Update()
     {
         
     }
+
+    private void Init()
+    {
+        gridSprite = GetComponent<SpriteRenderer>();
+        gridSprite.size = new Vector2(width, height);
+        this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
+
+        gridSprite.transform.position = new Vector3((width / 2) - 0.5f, -(height / 2) + 0.5f, 0);
+
+     
+
+
+    }
+
+
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2355175089629123568}
   - component: {fileID: 1371037019934448809}
   - component: {fileID: 8571713848129212348}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GreanSlow
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 1148165051595609240}
   - component: {fileID: 5535621601298443127}
   - component: {fileID: 238945256866010806}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,6 +244,10 @@ PrefabInstance:
     - target: {fileID: 8567491199774798174, guid: 35da18638c151d941afc03d2186e3687, type: 3}
       propertyPath: m_Name
       value: Particle System
+      objectReference: {fileID: 0}
+    - target: {fileID: 8567491199774798174, guid: 35da18638c151d941afc03d2186e3687, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

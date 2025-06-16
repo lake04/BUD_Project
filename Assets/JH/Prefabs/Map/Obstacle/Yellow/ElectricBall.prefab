@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7184746625523299144}
   - component: {fileID: -5664247060623299842}
   - component: {fileID: -8343303663256029319}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ElectricBall
   m_TagString: Block
   m_Icon: {fileID: 0}

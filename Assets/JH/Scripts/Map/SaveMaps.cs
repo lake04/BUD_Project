@@ -28,7 +28,6 @@ public class SaveBlockData
     public int blockID;
     public Vector3Serial position;
     public Vector3Serial rotation;
-    public Vector3Serial startPosition;
 }
 
 [System.Serializable]
@@ -36,5 +35,6 @@ public class MapDatas
 {
     public string mapName;
     public string mapDesc;
+    public Vector3Serial startPosition;
     public SaveBlockData[] blocks;
 }

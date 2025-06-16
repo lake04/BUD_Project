@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+using TMPro;
 
 public class EditorUI : MonoBehaviour
 {
@@ -23,10 +23,15 @@ public class EditorUI : MonoBehaviour
     Vector3 realPos;
     public int currentBlockIndex;
 
-    public Vector3Serial startPos;
-    private bool isSettingStartPosition; 
+    public Vector3Serial startPos = null;
+    private bool isSettingStartPosition = false;
 
     private List<GameObject> instantiatedEditorBlocks = new List<GameObject>();
+
+    public HashSet<Vector2Int> gridMap;
+
+    private float camaerMoveSpeed = 5;
+    [SerializeField] private TMP_Text description;
 
     private void Awake()
     {
@@ -42,6 +47,26 @@ public class EditorUI : MonoBehaviour
 
     void Start()
     {
+        Init();
+        description.text = blockDataList.data[0].description;
+    }
+
+    private void Update()
+    {
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            MouseMove();
+            OnSpawnButton();
+            RemoveClick();
+        }
+
+        CameraMovement();
+        CmaeraWheels();
+    }
+
+
+    private void Init()
+    {
         currentMapData = new MapDatas
         {
             mapName = "New Map",
@@ -49,8 +74,6 @@ public class EditorUI : MonoBehaviour
         };
 
         pointerButton = Instantiate(pointerButton);
-
-    
 
         foreach (var blockData in blockDataList.data)
         {
@@ -60,22 +83,29 @@ public class EditorUI : MonoBehaviour
             tempObj.GetComponentInChildren<Text>().text = blockData.name;
         }
         if (blockDataList == null) Debug.Log("스크립터블 오브젝트가 없음");
-    }
 
-    private void Update()
-    {
-        if (!EventSystem.current.IsPointerOverGameObject())
-        {
-            MouseMove();
-            OnSpawnButton();
-        }
-
-        CameraMovement();
+        gridMap = new HashSet<Vector2Int>();
     }
 
     public void CameraMovement()
     {
-        Camera.main.transform.position += new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * Time.deltaTime * 5f;
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            camaerMoveSpeed = 10f;
+        }
+        if(Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            camaerMoveSpeed = 5f;
+        }
+        Camera.main.transform.position += new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * Time.deltaTime * camaerMoveSpeed;
+    }
+
+    private void CmaeraWheels()
+    {
+        if(Input.GetKey(KeyCode.Mouse2))
+        {
+            Debug.Log("마우스 휠");
+        }
     }
 
     public void MouseMove()
@@ -87,93 +117,144 @@ public class EditorUI : MonoBehaviour
 
     public void OnSpawnButton()
     {
+        RaycastHit2D hit = Physics2D.Raycast(realPos, Vector2.zero);
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit2D hit = Physics2D.Raycast(realPos, Vector2.zero);
-            if (hit.collider == null ||!hit.collider.CompareTag("Grid")  )
+            Vector2Int curPos = new Vector2Int(Mathf.RoundToInt(realPos.x)
+               , Mathf.RoundToInt(realPos.y));
+
+            if (hit.collider == null)
             {
                 return;
             }
-                foreach (SaveBlockData pos in currentBlocks)
+
+            if (gridMap.Contains(curPos) == true)
+            {
+                Debug.Log("이미 블럭이 존재합니다");
+                return;
+
+            }
+            gridMap.Add(curPos);
+            foreach (SaveBlockData pos in currentBlocks)
+            {
+                if (new Vector3(pos.position.x, pos.position.y, pos.position.z) == realPos)
                 {
-                    if (new Vector3(pos.position.x, pos.position.y, pos.position.z) == realPos)
-                    {
-                        return;
-                    }
+                    return;
                 }
+            }
 
+            if (currentBlockIndex == blockDataList.data.Length - 1)
+            {
+                if (isSettingStartPosition == true)
+                {
+                    return;
 
-                GameObject blockPrefab = Instantiate(
+                }
+                Debug.Log("시작 위치설치");
+                startPos = new Vector3Serial(realPos.x, realPos.y, 0);
+                isSettingStartPosition = true;
+            }
 
-                blockDataList.data[currentBlockIndex].prefab,
-                realPos,
-                pointerButton.transform.rotation
-                 );
+            GameObject blockPrefab = Instantiate(
+
+            blockDataList.data[currentBlockIndex].prefab,
+            realPos,
+            pointerButton.transform.rotation
+             );
 
             instantiatedEditorBlocks.Add(blockPrefab);
 
-
             currentBlocks.Add(new SaveBlockData
-                {
-                    blockID = currentBlockIndex,
-                    position = new Vector3Serial(realPos.x, realPos.y, 0),
-                    rotation = new Vector3Serial(
+            {
+                blockID = currentBlockIndex,
+                position = new Vector3Serial(realPos.x, realPos.y, 0),
+                rotation = new Vector3Serial(
                    pointerButton.transform.rotation.eulerAngles.x,
                    pointerButton.transform.rotation.eulerAngles.y,
                    pointerButton.transform.rotation.eulerAngles.z
                  )
-                });
+            });
 
 
-    }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            RaycastHit2D hit = Physics2D.Raycast(realPos, Vector2.zero);
-            if (hit.collider != null && hit.collider.CompareTag("Block"))
-            {
-                Vector3 pos = hit.collider.transform.position;
-                instantiatedEditorBlocks.Remove(hit.collider.gameObject);
-                Destroy(hit.collider.gameObject);
-
-                currentBlocks.RemoveAll(b =>
-                    Mathf.Approximately(b.position.x, pos.x) &&
-                    Mathf.Approximately(b.position.y, pos.y)
-                );
-
-                Debug.Log($"{pos} 블록 삭제 ");
-            }
         }
-
 
         if (Input.GetKeyDown(KeyCode.R))
         {
             pointerButton.gameObject.transform.Rotate(0, 0, 45);
         }
     }
+
+    private void RemoveClick()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(realPos, Vector2.zero);
+
+            if (hit.collider == null) return;
+
+            Vector2Int curPos = new Vector2Int(
+                Mathf.RoundToInt(realPos.x),
+                Mathf.RoundToInt(realPos.y)
+            );
+
+            if (gridMap.Contains(curPos) == false)
+            {
+                Debug.Log("블럭 존재하지 않음");
+                return;
+
+            }
+
+            Vector3 pos = hit.collider.transform.position;
+
+            SaveBlockData blockToRemove = currentBlocks.FirstOrDefault(b =>
+                Mathf.Approximately(b.position.x, pos.x) &&
+                Mathf.Approximately(b.position.y, pos.y)
+            );
+
+            if (blockToRemove != null &&
+                blockToRemove.blockID == blockDataList.data.Length - 1)
+            {
+                Debug.Log("시작 위치 삭제.");
+                isSettingStartPosition = false;
+            }
+            Debug.Log($"{hit.collider.name}");
+            if (hit.collider.name == "Grid") return;
+            instantiatedEditorBlocks.Remove(hit.collider.gameObject);
+            Destroy(hit.collider.gameObject);
+            currentBlocks.Remove(blockToRemove);
+            gridMap.Remove(curPos);
+
+            Debug.Log($"[{curPos}] 위치의 블록 삭제 완료");
+        }
+
+       
+    }
+
+
+
     public void OnSaveButton()
     {
         currentMapData.mapName = mapNameInput.text;
         currentMapData.blocks = currentBlocks.ToArray();
+        currentMapData.startPosition = this.startPos;
 
-
-        Debug.Log($"Map Name: {currentMapData.mapName}, Map Desc: {currentMapData.mapDesc}");
-        Debug.Log($"Total Blocks: {currentMapData.blocks.Length}");
+        if (currentMapData.startPosition == null)
+        {
+            Debug.LogError("맵을 저장하려면 시작 위치를 설정해야 합니다!");
+            return;
+        }
 
         string jsonData = JsonUtility.ToJson(currentMapData, true);
-        PlayerPrefs.SetString("List<SaveBlockData>", jsonData);
-        PlayerPrefs.Save();
-        string folderPath = Path.Combine(Application.persistentDataPath, "Resources", "Maps");
+
+        string folderPath = Path.Combine(Application.persistentDataPath, "Maps");
         if (!Directory.Exists(folderPath))
             Directory.CreateDirectory(folderPath);
-
 
         string fileName = currentMapData.mapName + ".json";
         string path = Path.Combine(folderPath, fileName);
         File.WriteAllText(path, jsonData);
 
         Debug.Log("저장 경로: " + path);
-
         SceneController.Instance.TitleLoad();
     }
 
@@ -267,5 +348,13 @@ public class EditorUI : MonoBehaviour
         Debug.Log($"Click On : {blockData.name}");
         currentBlockIndex = blockDataList.data.ToList().IndexOf(blockData);
         pointerButton.GetComponent<SpriteRenderer>().sprite = blockData.image;
+    }
+
+    public void OnClearClick()
+    {
+        currentBlocks.Clear();
+        instantiatedEditorBlocks.Clear();
+        isSettingStartPosition = false;
+        gridMap.Clear();
     }
 }

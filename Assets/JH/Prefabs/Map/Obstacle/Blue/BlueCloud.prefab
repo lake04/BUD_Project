@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1053669554500591863}
   - component: {fileID: 7348303416343324749}
   - component: {fileID: 6197815654434223757}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlueCloud
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 4190238514935509110}
   - component: {fileID: 635263638972636417}
   - component: {fileID: 8179104162961055395}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect: {fileID: 8322934658293212539}
+  isSlowing: 0
 --- !u!1001 &8951889050890110936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -224,6 +225,10 @@ PrefabInstance:
     - target: {fileID: 1133358238739800739, guid: 3203383c4fce15c47b654abee2732440, type: 3}
       propertyPath: m_Name
       value: BlueRain
+      objectReference: {fileID: 0}
+    - target: {fileID: 1133358238739800739, guid: 3203383c4fce15c47b654abee2732440, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4011884985940808187, guid: 3203383c4fce15c47b654abee2732440, type: 3}
       propertyPath: m_LocalPosition.x

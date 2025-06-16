@@ -50,6 +50,11 @@ public class Cam : MonoBehaviour
         {
             playerObj = FindObjectOfType<Player>().gameObject;
         }
+        else
+        {
+            return;
+        }
+           
     }
 
     // Update is called once per frame

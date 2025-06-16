@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1371037019934448809}
   - component: {fileID: 717639063399103728}
   - component: {fileID: -2289207293889065640}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: YellowSplinter
   m_TagString: Block
   m_Icon: {fileID: 0}
