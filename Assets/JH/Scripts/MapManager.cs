@@ -43,7 +43,7 @@ public class MapManager : MonoBehaviour
     {
         if (isEditorMode == false)
         {
-            LoadRandomMap();
+            LoadRandomStageMap();
             TestLoad();
         }
     }
@@ -54,34 +54,27 @@ public class MapManager : MonoBehaviour
         return JsonUtility.FromJson<List<SaveBlockData>>(json);
     }
 
-    public void LoadRandomMap()
+    public void LoadRandomStageMap()
     {
+        // 1. "Maps/Stage" 경로의 모든 TextAsset 로드
+        TextAsset[] mapAssets = Resources.LoadAll<TextAsset>("Maps/Stage");
 
-        string mapsFolderPath = Path.Combine(Application.persistentDataPath, "Resources", "Maps");
-     
-        if (!Directory.Exists(mapsFolderPath))
+        if (mapAssets == null || mapAssets.Length == 0)
         {
-            Debug.LogWarning($"맵 파일 폴더가 존재하지 않습니다: {mapsFolderPath}");
+            Debug.LogWarning("Resources/Maps/Stage 폴더에 json 맵이 없습니다.");
             return;
         }
 
-        string[] mapFilePaths = Directory.GetFiles(mapsFolderPath, "*.json");
+        // 2. 랜덤 선택
+        int randomIndex = Random.Range(0, mapAssets.Length);
+        TextAsset selectedMap = mapAssets[randomIndex];
 
-        if (mapFilePaths.Length == 0)
-        {
-            Debug.LogWarning($"저장된 맵 파일이 없습니다. 경로: {mapsFolderPath}");
-            return;
-        }
+        Debug.Log($"[스테이지 맵] 랜덤 로드: {selectedMap.name}");
 
-        int index = Random.Range(0, mapFilePaths.Length - 1);
-        string selectedMapFilePath = mapFilePaths[index];
+        // 3. json 파싱 및 맵 생성
+        MapDatas loadedMap = JsonUtility.FromJson<MapDatas>(selectedMap.text);
 
-        string jsonText = File.ReadAllText(selectedMapFilePath);
-
-        MapDatas loadedMap = JsonUtility.FromJson<MapDatas>(jsonText);
-        isEditorMode = false;
-        Debug.Log($"불러온 맵: {loadedMap.mapName} (파일 경로: {selectedMapFilePath}) (맵 개수 : {mapFilePaths.Length})");
-
+        // 기존 블록 삭제
         if (parentForBlocks != null)
         {
             foreach (Transform child in parentForBlocks)
@@ -89,53 +82,40 @@ public class MapManager : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
-        else
-        {
-            Debug.LogWarning("parentForBlocks가 할당되지 않았습니다. 블록들이 씬의 루트에 생성됩니다.");
-        }
 
-
+        // 블록 배치
         if (loadedMap.blocks != null)
         {
             foreach (var block in loadedMap.blocks)
             {
-                // (유효성 검사 및 프리팹 생성 로직은 기존과 동일)
                 if (block.blockID < 0 || block.blockID >= blockDataList.data.Length)
-                {
-                    Debug.LogWarning($"없는 블록 ID: {block.blockID}. 스킵합니다.");
                     continue;
-                }
+
+                if (block.blockID == blockDataList.data.Length - 1)
+                    continue; // 시작 위치는 따로 처리
+
                 GameObject prefab = blockDataList.data[block.blockID].prefab;
                 if (prefab == null)
-                {
-                    Debug.LogWarning($"블록 ID {block.blockID}의 프리팹이 없습니다.");
                     continue;
-                }
 
-                // 시작 위치 블록은 씬에 생성하지 않음 (게임 플레이 시에는 보일 필요가 없으므로)
-                if (block.blockID == blockDataList.data.Length - 1)
-                {
-                    continue;
-                }
-
-                Vector3 position = block.position.ToVector3();
-                Quaternion rotation = Quaternion.Euler(block.rotation.ToVector3());
-                Instantiate(prefab, position, rotation, parentForBlocks);
+                Vector3 pos = block.position.ToVector3();
+                Quaternion rot = Quaternion.Euler(block.rotation.ToVector3());
+                Instantiate(prefab, pos, rot, parentForBlocks);
             }
         }
 
-        // 5. 모든 맵 로딩이 끝난 후, 불러온 맵의 시작 위치에 플레이어 생성
+        // 플레이어 배치
         if (loadedMap.startPosition != null)
         {
             Vector3 spawnPos = loadedMap.startPosition.ToVector3();
             Instantiate(player, spawnPos, Quaternion.identity);
-            Debug.Log($"플레이어를 {spawnPos} 위치에 생성했습니다.");
+            Debug.Log($"[스테이지 맵] 플레이어 생성 위치: {spawnPos}");
         }
         else
         {
-            Debug.LogError($"'{loadedMap.mapName}' 맵에 시작 위치 데이터가 없습니다! 플레이어를 생성할 수 없습니다.");
+            Debug.LogError("시작 위치 정보가 없습니다.");
         }
-
     }
+
 
 }

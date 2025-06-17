@@ -191,53 +191,46 @@ public class EditorUI : MonoBehaviour
 
     public void OnSaveButton()
     {
-        if (!isStartPositionSet)
-        {
-            Debug.LogError("맵을 저장하려면 시작 위치를 설정해야 합니다!");
-            return;
-        }
-
         currentMapData.mapName = mapNameInput.text;
         currentMapData.blocks = currentBlocks.ToArray();
         currentMapData.startPosition = startPos;
 
-        string jsonData = JsonUtility.ToJson(currentMapData, true);
-        if (!Directory.Exists(MapSavePath)) Directory.CreateDirectory(MapSavePath);
+        string saveFolder = currentMapData.mapName.ToLower().Contains("stage") ?
+                            Path.Combine(Application.dataPath, "Resources", "Maps", "Stage") :
+                            Path.Combine(Application.persistentDataPath, "Maps", "User");
 
-        string path = Path.Combine(MapSavePath, currentMapData.mapName + ".json");
+        if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
+
+        string jsonData = JsonUtility.ToJson(currentMapData, true);
+        string path = Path.Combine(saveFolder, currentMapData.mapName + ".json");
         File.WriteAllText(path, jsonData);
 
-        Debug.Log("저장 경로: " + path);
+        Debug.Log($"맵 저장됨: {path}");
     }
 
-    public void LoadMapButton()
+
+    public void LoadUserMap(string mapName)
     {
-        string mapNameToLoad = mapNameInput.text;
-        if (string.IsNullOrWhiteSpace(mapNameToLoad))
+        string path = Path.Combine(Application.persistentDataPath, "Maps", "User", mapName + ".json");
+
+        if (!File.Exists(path))
         {
-            Debug.LogWarning("맵 이름을 입력해주세요!");
+            Debug.LogWarning($"유저 맵 파일을 찾을 수 없습니다: {path}");
             return;
         }
 
-        string selectedMapFilePath = Path.Combine(MapSavePath, mapNameToLoad + ".json");
-        if (!File.Exists(selectedMapFilePath))
-        {
-            Debug.LogWarning($"'{mapNameToLoad}.json' 맵 파일을 찾을 수 없습니다.");
-            return;
-        }
-
-        string jsonText = File.ReadAllText(selectedMapFilePath);
+        string jsonText = File.ReadAllText(path);
         MapDatas loadedMap = JsonUtility.FromJson<MapDatas>(jsonText);
 
+        // 기존 블록들 제거
         foreach (GameObject block in instantiatedEditorBlocks)
-        {
             Destroy(block);
-        }
 
         instantiatedEditorBlocks.Clear();
         currentBlocks.Clear();
         gridMap.Clear();
 
+        // 데이터 갱신
         currentMapData = loadedMap;
         mapNameInput.text = loadedMap.mapName;
 
@@ -245,10 +238,12 @@ public class EditorUI : MonoBehaviour
         {
             foreach (var block in loadedMap.blocks)
             {
-                if (block.blockID < 0 || block.blockID >= blockDataList.data.Length) continue;
+                if (block.blockID < 0 || block.blockID >= blockDataList.data.Length)
+                    continue;
 
                 GameObject prefab = blockDataList.data[block.blockID].prefab;
-                if (prefab == null) continue;
+                if (prefab == null)
+                    continue;
 
                 Vector3 position = block.position.ToVector3();
                 Quaternion rotation = Quaternion.Euler(block.rotation.ToVector3());
@@ -259,8 +254,27 @@ public class EditorUI : MonoBehaviour
                 gridMap.Add(new Vector2Int(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y)));
             }
             isStartPositionSet = true;
+            startPos = loadedMap.startPosition;
         }
+
+        Debug.Log($"유저 맵 로드 완료: {mapName}");
     }
+
+
+    public void LoadMapButton()
+    {
+        string mapNameToLoad = mapNameInput.text.Trim();
+
+        if (string.IsNullOrEmpty(mapNameToLoad))
+        {
+            Debug.LogWarning("맵 이름을 입력해주세요!");
+            return;
+        }
+
+        LoadUserMap(mapNameToLoad);
+    }
+
+
 
     public void OnClickTitle()
     {

@@ -23,15 +23,16 @@ public class Vector3Serial
 
     public static bool operator ==(Vector3Serial a, Vector3Serial b)
     {
-        return Mathf.Approximately(a.x, b.x) &&
-               Mathf.Approximately(a.y, b.y) &&
-               Mathf.Approximately(a.z, b.z);
+        if (ReferenceEquals(a, b)) return true;
+        if (ReferenceEquals(a, null) || ReferenceEquals(b, null)) return false;
+        return a.x == b.x && a.y == b.y && a.z == b.z;
     }
 
     public static bool operator !=(Vector3Serial a, Vector3Serial b)
     {
         return !(a == b);
     }
+
 
     public Vector3Serial(float x, float y, float z)
     {
