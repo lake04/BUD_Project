@@ -44,7 +44,7 @@ public class MapManager : MonoBehaviour
         if (isEditorMode == false)
         {
             LoadRandomStageMap();
-            TestLoad();
+            //TestLoad();
         }
     }
 
