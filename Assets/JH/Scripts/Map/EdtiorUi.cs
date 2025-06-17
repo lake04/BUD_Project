@@ -91,8 +91,8 @@ public class EditorUI : MonoBehaviour
             GameObject tempObj = Instantiate(buttonPrefab, buttonSpawnPrefab);
             tempObj.GetComponent<Button>().onClick.AddListener(() => OnSelectClick(blockData));
             tempObj.GetComponentInChildren<Image>().sprite = blockData.image;
-            tempObj.GetComponentsInChildren<Text>()[0].text = blockData.name;
-            tempObj.GetComponentsInChildren<Text>()[1].text = blockData.description;
+            tempObj.GetComponentInChildren<Text>().text = blockData.name;
+            tempObj.GetComponentInChildren<Text>().text = blockData.description;
         }
 
         gridMap = new HashSet<Vector2Int>();
@@ -197,7 +197,7 @@ public class EditorUI : MonoBehaviour
 
         string saveFolder = currentMapData.mapName.ToLower().Contains("stage") ?
                             Path.Combine(Application.dataPath, "Resources", "Maps", "Stage") :
-                            Path.Combine(Application.persistentDataPath, "Maps", "User");
+                            Path.Combine(Application.dataPath, "Maps", "User");
 
         if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
 
@@ -211,7 +211,7 @@ public class EditorUI : MonoBehaviour
 
     public void LoadUserMap(string mapName)
     {
-        string path = Path.Combine(Application.persistentDataPath, "Maps", "User", mapName + ".json");
+        string path = Path.Combine(Application.dataPath, "Maps", "User", mapName + ".json");
 
         if (!File.Exists(path))
         {
