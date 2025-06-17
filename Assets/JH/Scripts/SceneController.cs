@@ -30,14 +30,14 @@ public class SceneController : MonoBehaviour
 
     public void GameStart()
     {
-        CircleEffect.instance.LoadScene(1);
+        CircleEffect.instance.LoadScene(3);
        
     }
     public void Stage()
     {
         MapManager.Instance.isEditorMode = false;
 
-        CircleEffect.instance.LoadScene(4);
+        CircleEffect.instance.LoadScene(1);
     }
     public void TitleLoad()
     {
@@ -50,6 +50,11 @@ public class SceneController : MonoBehaviour
     {
         MapManager.Instance.isEditorMode = true;
         CircleEffect.instance.LoadScene(2);
+    }
+    public void CustomEdtiorLoad()
+    {
+        MapManager.Instance.isEditorMode = true;
+        CircleEffect.instance.LoadScene(4);
     }
 
     public void Quit()

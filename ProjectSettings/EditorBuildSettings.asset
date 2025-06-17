@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Wait.unity
     guid: 78299b2c2bc3f194e9f35543a9b80454
+  - enabled: 1
+    path: Assets/Scenes/EditorTitle.unity
+    guid: 60ea9c26cc8c11d4baf58abee27d7b4f
   m_configObjects: {}

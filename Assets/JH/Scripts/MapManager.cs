@@ -27,6 +27,7 @@ public class MapManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        this.gameObject.SetActive(true);
     }
 
     void Start()
