@@ -12,6 +12,7 @@ public class RoomCam
 public class Cam : MonoBehaviour
 {
     public float cameraSpeed = 5.0f;
+    private bool isPlayerGet = false;
 
     [Header("Singleton")]
     public static Cam camInstance;
@@ -42,13 +43,13 @@ public class Cam : MonoBehaviour
     void Start()
     {
 
-        
     }
     private void Update()
     {
-        if(playerObj == null)
+        if(playerObj == null && isPlayerGet==false)
         {
             playerObj = FindObjectOfType<Player>().gameObject;
+            isPlayerGet = true;
         }
         else
         {

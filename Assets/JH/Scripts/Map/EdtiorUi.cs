@@ -92,6 +92,7 @@ public class EditorUI : MonoBehaviour
             tempObj.GetComponent<Button>().onClick.AddListener(() => OnSelectClick(blockData));
             tempObj.GetComponentInChildren<Image>().sprite = blockData.image;
             tempObj.GetComponentInChildren<Text>().text = blockData.name;
+            tempObj.GetComponentInChildren<Text>().text = blockData.description;
         }
 
         gridMap = new HashSet<Vector2Int>();
