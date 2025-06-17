@@ -196,8 +196,8 @@ public class EditorUI : MonoBehaviour
         currentMapData.startPosition = startPos;
 
         string saveFolder = currentMapData.mapName.ToLower().Contains("stage") ?
-                            Path.Combine(Application.persistentDataPath, "Resources", "Maps", "Stage") :
-                            Path.Combine(Application.persistentDataPath, "Maps", "User");
+                            Path.Combine(Application.dataPath, "Resources", "Maps", "Stage") :
+                            Path.Combine(Application.dataPath, "Maps", "User");
 
         if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
 
@@ -211,7 +211,7 @@ public class EditorUI : MonoBehaviour
 
     public void LoadUserMap(string mapName)
     {
-        string path = Path.Combine(Application.persistentDataPath, "Maps", "User", mapName + ".json");
+        string path = Path.Combine(Application.dataPath, "Maps", "User", mapName + ".json");
 
         if (!File.Exists(path))
         {
