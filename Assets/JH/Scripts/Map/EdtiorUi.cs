@@ -81,6 +81,7 @@ public class EditorUI : MonoBehaviour
             tempObj.GetComponent<Button>().onClick.AddListener(() => OnSelectClick(blockData));
             tempObj.GetComponentInChildren<Image>().sprite = blockData.image;
             tempObj.GetComponentInChildren<Text>().text = blockData.name;
+            tempObj.GetComponentInChildren<Text>().text = blockData.description;
         }
         if (blockDataList == null) Debug.Log("스크립터블 오브젝트가 없음");
 

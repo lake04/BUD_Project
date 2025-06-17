@@ -7,6 +7,12 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spr;
 
+
+    public bool isDie = false;
+
+    [Header("Singleton")]
+    public static Player playerInstance;
+
     [Header("물리")]
     //public PhysicsMaterial2D pysic;
 
@@ -27,8 +33,13 @@ public class Player : MonoBehaviour
     public GameObject superDownParticle;
     public GameObject groundParticle;
     // Start is called before the first frame update
+
     void Start()
     {
+        if (playerInstance == null)
+        {
+            playerInstance = this;
+        }
         cam = Cam.camInstance.GetComponent<Cam>();
 
         //portal = Portal.portalInstance.GetComponent<Portal>();
@@ -41,71 +52,93 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (isMovingOk)
-        {
-            float moveInput = Input.GetAxis("Horizontal");
-            rb.AddForce(new Vector2(moveInput * moveSpeed, 0));
-            if (Mathf.Abs(rb.velocity.x) > maxMoveSpeed) rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxMoveSpeed, rb.velocity.y); //x축 가속도 제한
-        }
+        if (Input.GetKey(KeyCode.F11) && Input.GetKey(KeyCode.T)) isDie = true;
 
-        if (Mathf.Abs(rb.velocity.y) > maxFallingSpeed) rb.velocity = new Vector2(rb.velocity.x, Mathf.Sign(rb.velocity.y) * maxFallingSpeed); //y축 가속도 제한
+        if (isDie)
+        {
+            GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
+            Destroy(gameObject, 0.3f);
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            if (isMovingOk)
+            {
+                float moveInput = Input.GetAxis("Horizontal");
+                rb.AddForce(new Vector2(moveInput * moveSpeed, 0));
+                if (Mathf.Abs(rb.velocity.x) > maxMoveSpeed) rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxMoveSpeed, rb.velocity.y); //x축 가속도 제한
+            }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            cam.Shaking(0.7f);
-            GameObject Particle = Instantiate(superDownParticle, transform.position, transform.rotation);
-            isSuperDown = true;
-            isMovingOk = false;
-            rb.velocity = Vector2.zero;
-            rb.gravityScale = 100;
-            spr.color = Color.red;
-            trail.startColor = Color.red;
+            if (Mathf.Abs(rb.velocity.y) > maxFallingSpeed) rb.velocity = new Vector2(rb.velocity.x, Mathf.Sign(rb.velocity.y) * maxFallingSpeed); //y축 가속도 제한
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                cam.Shaking(0.7f);
+                GameObject Particle = Instantiate(superDownParticle, transform.position, transform.rotation);
+                isSuperDown = true;
+                isMovingOk = false;
+                rb.velocity = Vector2.zero;
+                rb.gravityScale = 100;
+                spr.color = Color.red;
+                trail.startColor = Color.red;
+            }
+            if (isSuperDown == false)
+            {
+                isMovingOk = true;
+                rb.gravityScale = 5;
+                spr.color = Color.cyan;
+                trail.startColor = Color.cyan;
+            }
+
         }
-        if (isSuperDown == false)
-        {
-            isMovingOk = true;
-            rb.gravityScale = 5;
-            spr.color = Color.cyan;
-            trail.startColor = Color.cyan;
-        }
+        
     }
 
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        isSuperDown = false;
-        
-        if (collision.gameObject.CompareTag("Ground"))
+        if (isDie==false)
         {
-            if (rb.velocity.y > 14)
+            isSuperDown = false;
+
+            if (collision.gameObject.CompareTag("Ground"))
             {
-                cam.Shaking(0.5f);
-                GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
-                //pysic.bounciness = 0.9f;
+                if (rb.velocity.y > 14)
+                {
+                    cam.Shaking(0.5f);
+                    GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
+                    //pysic.bounciness = 0.9f;
+                }
+                else if (rb.velocity.y > 12)
+                {
+                    cam.Shaking(0.2f);
+                    GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
+                    //pysic.bounciness = 0.9f;
+                }
+                else
+                {
+                    //pysic.bounciness = 0;
+                }
             }
-            else if (rb.velocity.y > 12)
+            if (collision.gameObject.CompareTag("Spike"))
             {
-                cam.Shaking(0.2f);
-                GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
-                //pysic.bounciness = 0.9f;
+                isDie = true;
+                
             }
-            else
-            {
-                //pysic.bounciness = 0;
-            }
+            //rb.sharedMaterial = pysic;
         }
-        if (collision.gameObject.CompareTag("Spike"))
-        {
-            Destroy(gameObject);
-            GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
-        }
-        //rb.sharedMaterial = pysic;
+
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Portal1"))
+        if (isDie==false)
         {
-            //transform.position = portal.portal2.position;
+            if (collision.gameObject.CompareTag("Portal1"))
+            {
+                //transform.position = portal.portal2.position;
+            }
         }
+        
     }
 }
