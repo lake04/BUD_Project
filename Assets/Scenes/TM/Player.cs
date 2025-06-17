@@ -120,15 +120,18 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Block"))
         {
-            if (rb.velocity.y > 14)
+            if (rb.velocity.y > 33)
             {
                 cam.Shaking(0.5f);
+                Debug.Log("bigShake");
+                GameObject Particle1 = Instantiate(groundParticle, transform.position, transform.rotation);
                 GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
                 //pysic.bounciness = 0.9f;
             }
-            else if (rb.velocity.y > 12)
+            else if (rb.velocity.y > 30)
             {
                 cam.Shaking(0.2f);
+                Debug.Log("Shake");
                 GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
                 //pysic.bounciness = 0.9f;
             }

@@ -310,7 +310,7 @@ MonoBehaviour:
   isDie: 0
   moveSpeed: 1.5
   maxMoveSpeed: 3
-  maxFallingSpeed: 20
+  maxFallingSpeed: 35
   cam: {fileID: 0}
   trail: {fileID: 5694092342891948124}
   superDownParticle: {fileID: 3558660010879007009, guid: a10d2fd68fd53d0429d90881b9bda4a3, type: 3}
