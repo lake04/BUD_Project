@@ -192,9 +192,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Stage
-
-'
+  m_Text: START
 --- !u!222 &173406187
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -900,7 +898,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: EDITOR
+  m_Text: EDITOR MODE
 --- !u!222 &1359486785
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1067,7 +1065,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 0}
+  m_AnchoredPosition: {x: -250, y: 0}
   m_SizeDelta: {x: 334.1154, y: 62.6466}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1659245807
@@ -1116,7 +1114,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 578984637}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: Stage
+        m_MethodName: GameStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
