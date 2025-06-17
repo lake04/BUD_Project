@@ -25,7 +25,7 @@ public class UserMapListUI : MonoBehaviour
         }
         System.IO.DirectoryInfo di = new DirectoryInfo(userMapPath);
 
-        foreach (FileInfo file in di.GetFiles("*.cs"))
+        foreach (FileInfo file in di.GetFiles("*.Json"))
         {
             GameObject go = Instantiate(userMapItemPrefab,pos.transform);
             go.GetComponentInChildren<Text>().text = file.Name;
