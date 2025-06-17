@@ -1650,7 +1650,7 @@ MonoBehaviour:
       z: 0
     blocks: []
   currentBlocks: []
-  buttonPrefab: {fileID: 8696072677709656509, guid: 4c15f487aa712cb4e958eeea6c43eecc, type: 3}
+  buttonPrefab: {fileID: 8696072677709656509, guid: a9807bf740bc4074682070b0d816f765, type: 3}
   mapNameInput: {fileID: 2013022701}
   buttonSpawnPrefab: {fileID: 9127332004488357408}
   blockDataList: {fileID: 11400000, guid: ab1339e43ebb2c947ab85320006e1b4e, type: 2}
@@ -3321,8 +3321,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 110.03998, y: -0.0024414062}
-  m_SizeDelta: {x: 220.07251, y: -0.30004883}
+  m_AnchoredPosition: {x: 151.36, y: -0.0024414062}
+  m_SizeDelta: {x: 302.73, y: -0.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5426375865234303650
 GameObject:
