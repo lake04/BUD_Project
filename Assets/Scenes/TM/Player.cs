@@ -97,38 +97,33 @@ public class Player : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isDie==false)
+        isSuperDown = false;
+        
+        if (collision.gameObject.CompareTag("Block"))
         {
-            isSuperDown = false;
-
-            if (collision.gameObject.CompareTag("Ground"))
+            if (rb.velocity.y > 14)
             {
-                if (rb.velocity.y > 14)
-                {
-                    cam.Shaking(0.5f);
-                    GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
-                    //pysic.bounciness = 0.9f;
-                }
-                else if (rb.velocity.y > 12)
-                {
-                    cam.Shaking(0.2f);
-                    GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
-                    //pysic.bounciness = 0.9f;
-                }
-                else
-                {
-                    //pysic.bounciness = 0;
-                }
+                cam.Shaking(0.5f);
+                GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
+                //pysic.bounciness = 0.9f;
             }
-            if (collision.gameObject.CompareTag("Spike"))
+            else if (rb.velocity.y > 12)
             {
-                isDie = true;
-                
+                cam.Shaking(0.2f);
+                GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
+                //pysic.bounciness = 0.9f;
             }
-            //rb.sharedMaterial = pysic;
+            else
+            {
+                //pysic.bounciness = 0;
+            }
         }
-
-
+        if (collision.gameObject.CompareTag("Spike"))
+        {
+            Destroy(gameObject);
+            GameObject Particle = Instantiate(groundParticle, transform.position, transform.rotation);
+        }
+        //rb.sharedMaterial = pysic;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
