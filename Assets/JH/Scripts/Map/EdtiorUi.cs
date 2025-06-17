@@ -91,8 +91,8 @@ public class EditorUI : MonoBehaviour
             GameObject tempObj = Instantiate(buttonPrefab, buttonSpawnPrefab);
             tempObj.GetComponent<Button>().onClick.AddListener(() => OnSelectClick(blockData));
             tempObj.GetComponentInChildren<Image>().sprite = blockData.image;
-            tempObj.GetComponentInChildren<Text>().text = blockData.name;
-            tempObj.GetComponentInChildren<Text>().text = blockData.description;
+            tempObj.GetComponentsInChildren<Text>()[0].text = blockData.name;
+            tempObj.GetComponentsInChildren<Text>()[1].text = blockData.description;
         }
 
         gridMap = new HashSet<Vector2Int>();
