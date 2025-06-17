@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4208097472780318627}
   - component: {fileID: 4281726158013646609}
-  - component: {fileID: 6546276195701020755}
+  - component: {fileID: 1399573281474735307}
   m_Layer: 10
   m_Name: BlueReverseCornerWall
   m_TagString: Block
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &6546276195701020755
-BoxCollider2D:
+--- !u!68 &1399573281474735307
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,15 +118,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 39.654377, y: 36.75}
-    newSize: {x: 1.9827187, y: 1.8374999}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+  m_Points:
+  - {x: -7.506571, y: -8.470312}
+  - {x: -0.0034229755, y: -1.1729283}
+  - {x: 7.446361, y: -8.479475}
+  - {x: 9.11983, y: -6.9926662}
+  - {x: 0.538517, y: 1.233088}
+  - {x: -0.4891293, y: 1.2776864}
+  - {x: -8.918946, y: -7.0766816}
+  - {x: -7.469127, y: -8.587957}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 74716383642741308}
   - component: {fileID: 1745245323193141508}
   - component: {fileID: 2631235452436362389}
-  - component: {fileID: 9009171427676614766}
   - component: {fileID: -8875242946698212139}
+  - component: {fileID: 7561388247573793918}
   m_Layer: 10
   m_Name: YellowBouncePad
   m_TagString: Block
@@ -114,8 +114,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &9009171427676614766
-CircleCollider2D:
+--- !u!114 &-8875242946698212139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784878701573972437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f852d9e2aa99b5448579aab4c662f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceForce: 100
+--- !u!68 &7561388247573793918
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -146,19 +159,17 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.04, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &-8875242946698212139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 784878701573972437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f852d9e2aa99b5448579aab4c662f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bounceForce: 30
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 2.3949356, y: 3.9394755}
+  - {x: -4.620811, y: -1.8945088}
+  - {x: -4.809056, y: -3.1291566}
+  - {x: -3.920126, y: -3.9074469}
+  - {x: 5.260307, y: 1.1171811}
+  - {x: 4.508749, y: 3.4750123}
+  - {x: 2.47336, y: 3.9715037}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0

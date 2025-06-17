@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4208097472780318627}
   - component: {fileID: 4281726158013646609}
-  - component: {fileID: 6546276195701020755}
+  - component: {fileID: 7367458812429541892}
   m_Layer: 10
   m_Name: GreanCornerWall
   m_TagString: Block
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &6546276195701020755
-BoxCollider2D:
+--- !u!68 &7367458812429541892
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,15 +118,16 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.6011805, y: 0.5849058}
-    oldSize: {x: 39.654377, y: 36.75}
-    newSize: {x: 2.0870724, y: 1.9342105}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+  m_Points:
+  - {x: -9.224661, y: -0.96866846}
+  - {x: -1.1003904, y: -1.02992}
+  - {x: -1.117801, y: -9.14155}
+  - {x: 0.9557836, y: -9.19897}
+  - {x: 1.1538432, y: 1.0459247}
+  - {x: -9.260309, y: 1.2367159}
+  - {x: -9.354956, y: -0.7656858}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0

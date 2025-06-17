@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2355175089629123568}
   - component: {fileID: 1371037019934448809}
-  - component: {fileID: 8571713848129212348}
   m_Layer: 10
   m_Name: GreanSlow
   m_TagString: Block
@@ -87,20 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8571713848129212348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4063470794569295066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fcbc8cb817518f44b1b1c2e793b5787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effect: {fileID: 6520775941844619944}
-  isSlowing: 0
 --- !u!1 &4850569418067449558
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,8 +95,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1148165051595609240}
-  - component: {fileID: 5535621601298443127}
   - component: {fileID: 238945256866010806}
+  - component: {fileID: 1467075073392371592}
   m_Layer: 10
   m_Name: Range
   m_TagString: Untagged
@@ -134,7 +119,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2355175089629123568}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &5535621601298443127
+--- !u!114 &238945256866010806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4850569418067449558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fcbc8cb817518f44b1b1c2e793b5787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect: {fileID: 6520775941844619944}
+  isSlowing: 0
+--- !u!61 &1467075073392371592
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,7 +162,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -177,22 +176,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
---- !u!114 &238945256866010806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4850569418067449558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fcbc8cb817518f44b1b1c2e793b5787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effect: {fileID: 6520775941844619944}
-  isSlowing: 0
 --- !u!1001 &3214344114645722102
 PrefabInstance:
   m_ObjectHideFlags: 0

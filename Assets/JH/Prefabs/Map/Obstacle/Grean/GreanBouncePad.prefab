@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 74716383642741308}
   - component: {fileID: 1745245323193141508}
   - component: {fileID: 2631235452436362389}
-  - component: {fileID: 9009171427676614766}
   - component: {fileID: 958920072205242796}
+  - component: {fileID: 2929163224307645135}
   m_Layer: 10
   m_Name: GreanBouncePad
   m_TagString: Block
@@ -114,8 +114,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &9009171427676614766
-CircleCollider2D:
+--- !u!114 &958920072205242796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784878701573972437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f852d9e2aa99b5448579aab4c662f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceForce: 100
+--- !u!68 &2929163224307645135
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -146,19 +159,18 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.04, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &958920072205242796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 784878701573972437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f852d9e2aa99b5448579aab4c662f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bounceForce: 30
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -4.516333, y: -2.7968903}
+  - {x: 0.349334, y: -2.0532248}
+  - {x: 2.2052755, y: -0.8540526}
+  - {x: 4.360801, y: 1.9691626}
+  - {x: 0.8847662, y: 2.9121704}
+  - {x: -1.5765104, y: 1.8614899}
+  - {x: -4.089156, y: -1.0585626}
+  - {x: -4.468951, y: -2.730822}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0

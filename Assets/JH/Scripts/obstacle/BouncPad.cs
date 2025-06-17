@@ -1,27 +1,29 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BouncPad : MonoBehaviour
 {
-    public float bounceForce = 30f; 
+    public float bounceForce = 10000f;
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Rigidbody2D ballRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            Rigidbody2D rb = collision.rigidbody;
 
-            if (ballRb != null)
+            if (rb != null)
             {
- 
-                Vector2 normalForceDirection = collision.contacts[0].normal;
-                ballRb.AddForce(normalForceDirection * bounceForce, ForceMode2D.Impulse);
+                //rb.velocity = new Vector2(rb.velocity.x, 0f);
 
-         
+                rb.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
             }
         }
     }
-
-   
 }
+
+
+
+
+
+
