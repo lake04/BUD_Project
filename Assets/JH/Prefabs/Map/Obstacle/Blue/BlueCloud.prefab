@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1053669554500591863}
   - component: {fileID: 7348303416343324749}
   - component: {fileID: 6197815654434223757}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: BlueCloud
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 864562038208208442}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.007, y: 0.008, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5446659040500913699}
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 4190238514935509110}
   - component: {fileID: 635263638972636417}
   - component: {fileID: 8179104162961055395}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1133358238739800739, guid: 3203383c4fce15c47b654abee2732440, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4011884985940808187, guid: 3203383c4fce15c47b654abee2732440, type: 3}
       propertyPath: m_LocalPosition.x

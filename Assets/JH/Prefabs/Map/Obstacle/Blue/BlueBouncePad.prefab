@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2631235452436362389}
   - component: {fileID: 9009171427676614766}
   - component: {fileID: 5188875414893943982}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: BlueBouncePad
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 784878701573972437}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.9, y: -1.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -17,17 +17,7 @@ public class EditorHowToPlay : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            if(isPop == true)
-            {
-                PopDown();
-            }
-            else
-            {
-                PopUP();
-            }
-        }
+        
     }
     
 

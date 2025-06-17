@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
     {
         isSuperDown = false;
         
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Block"))
         {
             if (rb.velocity.y > 14)
             {

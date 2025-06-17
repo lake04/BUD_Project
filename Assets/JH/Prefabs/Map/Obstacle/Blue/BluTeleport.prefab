@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1710620328853266210}
   - component: {fileID: 7489737126310147672}
   - component: {fileID: 7012302102231941058}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: BluTeleport
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 10, y: 10}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

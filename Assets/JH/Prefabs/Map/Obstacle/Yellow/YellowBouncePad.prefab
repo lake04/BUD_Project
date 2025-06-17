@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2631235452436362389}
   - component: {fileID: 9009171427676614766}
   - component: {fileID: -8875242946698212139}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: YellowBouncePad
   m_TagString: Block
   m_Icon: {fileID: 0}

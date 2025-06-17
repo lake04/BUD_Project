@@ -39,11 +39,7 @@ public class GirdSetManager : MonoBehaviour
         gridSprite.size = new Vector2(width, height);
         this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
 
-        gridSprite.transform.position = new Vector3((width / 2) - 0.5f, -(height / 2) + 0.5f, 0);
-
-     
-
-
+        gridSprite.transform.position = new Vector3((width / 2) - 7.0f, -(height / 2) + 7.0f, 0);
     }
 
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4208097472780318627}
   - component: {fileID: 4281726158013646609}
   - component: {fileID: 6546276195701020755}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: YellowWall2
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.2030208, y: 2.0416665}
+    oldSize: {x: 39.654377, y: 36.75}
     newSize: {x: 1.9827187, y: 1.8374999}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

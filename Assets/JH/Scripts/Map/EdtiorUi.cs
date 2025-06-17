@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using TMPro;
+using static Unity.Collections.AllocatorManager;
 
 public class EditorUI : MonoBehaviour
 {
@@ -30,13 +31,15 @@ public class EditorUI : MonoBehaviour
 
     public HashSet<Vector2Int> gridMap;
 
-    private float cameraMoveSpeed = 5;
+    private float cameraMoveSpeed = 100f;
     [SerializeField] private TMP_Text description;
 
     private const string DefaultMapName = "New Map";
     private const string DefaultMapDesc = "This is a new map.";
 
-    private string MapSavePath => Path.Combine(Application.persistentDataPath, "Maps");
+    private string MapSavePath;
+
+    public float snapSize;
 
     private void Awake()
     {
@@ -92,12 +95,14 @@ public class EditorUI : MonoBehaviour
         }
 
         gridMap = new HashSet<Vector2Int>();
+
+        MapSavePath = Path.Combine(Application.persistentDataPath, "Resources", "Maps");
     }
 
     public void CameraMovement()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift)) cameraMoveSpeed = 10f;
-        if (Input.GetKeyUp(KeyCode.LeftShift)) cameraMoveSpeed = 5f;
+        if (Input.GetKeyDown(KeyCode.LeftShift)) cameraMoveSpeed = 150f;
+        if (Input.GetKeyUp(KeyCode.LeftShift)) cameraMoveSpeed = 100;
 
         Camera.main.transform.position += new Vector3(
             Input.GetAxis("Horizontal"),
@@ -108,7 +113,10 @@ public class EditorUI : MonoBehaviour
     public void MouseMove()
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-        realPos = new Vector3(Mathf.RoundToInt(mousePos.x), Mathf.RoundToInt(mousePos.y), 0);
+        float snappedX = Mathf.Round(mousePos.x / snapSize) * snapSize;
+        float snappedY = Mathf.Round(mousePos.y / snapSize) * snapSize;
+
+        realPos = new Vector3(snappedX, snappedY, 0);
         pointerButton.transform.position = realPos;
     }
 
@@ -143,6 +151,7 @@ public class EditorUI : MonoBehaviour
                                              pointerButton.transform.rotation.eulerAngles.y,
                                              pointerButton.transform.rotation.eulerAngles.z)
             });
+
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -154,20 +163,19 @@ public class EditorUI : MonoBehaviour
     private void RemoveClick()
     {
         if (!Input.GetMouseButtonDown(1)) return;
-
-        RaycastHit2D hit = Physics2D.Raycast(realPos, Vector2.zero);
-        if (hit.collider == null || hit.collider.CompareTag("Unremovable")) return;
-
-        Vector2Int curPos = new Vector2Int(Mathf.RoundToInt(realPos.x), Mathf.RoundToInt(realPos.y));
-        if (!gridMap.Contains(curPos)) return;
-
-        Vector3 pos = hit.collider.transform.position;
-
-        SaveBlockData blockToRemove = currentBlocks.FirstOrDefault(b => Mathf.Approximately(b.position.x, pos.x) && Mathf.Approximately(b.position.y, pos.y));
-
-        if (blockToRemove.blockID == blockDataList.data.Length - 1) isStartPositionSet = false;
-
-        DestroyBlock(hit.collider.gameObject, blockToRemove, curPos);
+        int blockIndex = currentBlocks.FindIndex(x => x.position == new Vector3Serial(realPos.x, realPos.y, 0));
+        Debug.Log(blockIndex);
+        try{
+            Destroy(instantiatedEditorBlocks[blockIndex].gameObject);
+            instantiatedEditorBlocks.RemoveAt(blockIndex);
+            currentBlocks.RemoveAt(blockIndex);
+            Vector2Int curPos = new Vector2Int(Mathf.RoundToInt(realPos.x), Mathf.RoundToInt(realPos.y));
+            gridMap.Remove(curPos);
+        }
+        catch
+        {
+            Debug.LogWarning("삭제할 블럭이 없습니다!");
+        }
     }
 
     private void DestroyBlock(GameObject obj, SaveBlockData data, Vector2Int pos)
@@ -265,9 +273,17 @@ public class EditorUI : MonoBehaviour
 
     public void OnClearClick()
     {
-        currentBlocks.Clear();
-        instantiatedEditorBlocks.Clear();
         isStartPositionSet = false;
-        gridMap.Clear();
+        while(instantiatedEditorBlocks.Count > 0)
+        {
+            int i = 0;
+            Vector2Int blockPos = new Vector2Int(Mathf.RoundToInt(instantiatedEditorBlocks[i].transform.position.x), Mathf.RoundToInt(instantiatedEditorBlocks[i].transform.position.y));
+            DestroyBlock(instantiatedEditorBlocks[i], currentBlocks[i], blockPos);
+            Debug.Log("블럭 삭제");
+            i++;
+        }
+     
+        Debug.Log(instantiatedEditorBlocks.Count);
+        Debug.Log(currentBlocks.Count);
     }
 }

@@ -73,14 +73,14 @@ public class MapManager : MonoBehaviour
             return;
         }
 
-        int index = Random.Range(0, mapFilePaths.Length);
+        int index = Random.Range(0, mapFilePaths.Length - 1);
         string selectedMapFilePath = mapFilePaths[index];
 
         string jsonText = File.ReadAllText(selectedMapFilePath);
 
         MapDatas loadedMap = JsonUtility.FromJson<MapDatas>(jsonText);
         isEditorMode = false;
-        Debug.Log($"불러온 맵: {loadedMap.mapName} (파일 경로: {selectedMapFilePath})");
+        Debug.Log($"불러온 맵: {loadedMap.mapName} (파일 경로: {selectedMapFilePath}) (맵 개수 : {mapFilePaths.Length})");
 
         if (parentForBlocks != null)
         {
