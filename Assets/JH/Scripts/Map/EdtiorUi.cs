@@ -196,7 +196,7 @@ public class EditorUI : MonoBehaviour
         currentMapData.startPosition = startPos;
 
         string saveFolder = currentMapData.mapName.ToLower().Contains("stage") ?
-                            Path.Combine(Application.dataPath, "Resources", "Maps", "Stage") :
+                            Path.Combine(Application.persistentDataPath, "Resources", "Maps", "Stage") :
                             Path.Combine(Application.persistentDataPath, "Maps", "User");
 
         if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
