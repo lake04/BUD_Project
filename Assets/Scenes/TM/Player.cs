@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using FMOD.Studio;
+using FMODUnity;
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -32,6 +33,11 @@ public class Player : MonoBehaviour
     [Header("ÆÄÆ¼Å¬")]
     public GameObject superDownParticle;
     public GameObject groundParticle;
+
+    [Header("FMOD")]
+    public EventReference playerBounce1;
+    public EventReference playerBounce2;
+    public EventReference playerBounce3;
     // Start is called before the first frame update
 
     void Start()
@@ -98,7 +104,20 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         isSuperDown = false;
-        
+
+        int randSound = Random.Range(1, 3);
+        if (randSound == 1)
+        {
+            RuntimeManager.CreateInstance(playerBounce1).start();
+        }
+        else if(randSound == 2)
+        {
+            RuntimeManager.CreateInstance(playerBounce2).start();
+        }
+        else if (randSound == 3)
+        {
+            RuntimeManager.CreateInstance(playerBounce3).start();
+        }
         if (collision.gameObject.CompareTag("Block"))
         {
             if (rb.velocity.y > 14)

@@ -307,6 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f4de78389a9714ca84c30a45a052ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDie: 0
   moveSpeed: 1.5
   maxMoveSpeed: 3
   maxFallingSpeed: 20
@@ -314,3 +315,24 @@ MonoBehaviour:
   trail: {fileID: 5694092342891948124}
   superDownParticle: {fileID: 3558660010879007009, guid: a10d2fd68fd53d0429d90881b9bda4a3, type: 3}
   groundParticle: {fileID: 6571830663303983230, guid: 52fbe24655b546e4bb49a7741b93bcc1, type: 3}
+  playerBounce1:
+    Guid:
+      Data1: -1810753164
+      Data2: 1081284860
+      Data3: -1911799656
+      Data4: 1408952966
+    Path: "event:/\uC18C\uB9AC_2025_06_18_00_28_00_556_[cut_0sec]"
+  playerBounce2:
+    Guid:
+      Data1: 1088948400
+      Data2: 1264493239
+      Data3: -1685996650
+      Data4: -1555099284
+    Path: "event:/\uC18C\uB9AC_2025_06_18_00_28_00_556_[cut_0sec] (1)"
+  playerBounce3:
+    Guid:
+      Data1: -1648673348
+      Data2: 1235949817
+      Data3: 2004799875
+      Data4: 1605219684
+    Path: "event:/\uC18C\uB9AC_2025_06_18_00_28_00_556_[cut_0sec] (2)"

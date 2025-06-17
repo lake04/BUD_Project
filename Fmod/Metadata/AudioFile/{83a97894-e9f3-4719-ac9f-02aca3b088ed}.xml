@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{83a97894-e9f3-4719-ac9f-02aca3b088ed}">
+		<property name="assetPath">
+			<value>FOOTSTEP_Rock_Run_01_RR03_mono.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.24403628117913831</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{3b51a49f-684c-45f8-b86b-60de8f2f98f3}</destination>
+		</relationship>
+	</object>
+</objects>
