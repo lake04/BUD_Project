@@ -1,59 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3261091005082249435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: "event:/\uC18C\uB9AC_2025_06_18_00_28_00_556_[cut_0sec] (2)"
-  m_EditorClassIdentifier: 
-  Path: "event:/\uC18C\uB9AC_2025_06_18_00_28_00_556_[cut_0sec] (2)"
-  Guid:
-    Data1: -1648673348
-    Data2: 1235949817
-    Data3: 2004799875
-    Data4: 1605219684
-  Banks:
-  - {fileID: 1655737554567356557}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-2329295213218596735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: "event:/\uC18C\uB9AC_2025_06_18_00_28_00_556_[cut_0sec] (1)"
-  m_EditorClassIdentifier: 
-  Path: "event:/\uC18C\uB9AC_2025_06_18_00_28_00_556_[cut_0sec] (1)"
-  Guid:
-    Data1: 1088948400
-    Data2: 1264493239
-    Data3: -1685996650
-    Data4: -1555099284
-  Banks:
-  - {fileID: 1655737554567356557}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,87 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Script: {fileID: 0}
   m_Name: FMODStudioCache
-  m_EditorClassIdentifier: 
-  EditorBanks:
-  - {fileID: 2037176988389271143}
-  - {fileID: 1655737554567356557}
-  EditorEvents:
-  - {fileID: 2382740883047508026}
-  - {fileID: -2329295213218596735}
-  - {fileID: -3261091005082249435}
+  m_EditorClassIdentifier: FMODUnityEditor:FMODUnity:EventCache
+  EditorBanks: []
+  EditorEvents: []
   EditorParameters: []
-  MasterBanks:
-  - {fileID: 1655737554567356557}
-  StringsBanks:
-  - {fileID: 2037176988389271143}
-  cacheTime: 638858140267995579
+  MasterBanks: []
+  StringsBanks: []
+  cacheTime: 0
   cacheVersion: 131622
---- !u!114 &1655737554567356557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
-  m_EditorClassIdentifier: 
-  Path: Fmod/Build/Desktop/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 638858140267995579
-  FileSizes:
-  - Name: Desktop
-    Value: 15680
-  Exists: 1
---- !u!114 &2037176988389271143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
-  m_EditorClassIdentifier: 
-  Path: Fmod/Build/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 638858140267995579
-  FileSizes:
-  - Name: Desktop
-    Value: 882
-  Exists: 1
---- !u!114 &2382740883047508026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: "event:/\uC18C\uB9AC_2025_06_18_00_28_00_556_[cut_0sec]"
-  m_EditorClassIdentifier: 
-  Path: "event:/\uC18C\uB9AC_2025_06_18_00_28_00_556_[cut_0sec]"
-  Guid:
-    Data1: -1810753164
-    Data2: 1081284860
-    Data3: -1911799656
-    Data4: 1408952966
-  Banks:
-  - {fileID: 1655737554567356557}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
