@@ -14,6 +14,7 @@ public class MapManager : MonoBehaviour
     public GameObject player;
 
     public bool isEditorMode;
+    public bool isCustom;
 
 
     private void Awake()
@@ -44,9 +45,12 @@ public class MapManager : MonoBehaviour
     {
         if (isEditorMode == false)
         {
-            LoadRandomStageMap();
-            //TestLoad();
+            if (isCustom == false)
+            {
+                LoadRandomStageMap();
+            }
         }
+        
     }
 
     public List<SaveBlockData> TestLoad()
@@ -117,6 +121,50 @@ public class MapManager : MonoBehaviour
             Debug.LogError("시작 위치 정보가 없습니다.");
         }
     }
+
+    public void LoadUserMap(string mapName)
+    {
+        string path = Path.Combine(Application.dataPath, "Maps", "User", mapName);
+
+        if (!File.Exists(path))
+        {
+            Debug.LogError($"[유저맵] {mapName} 파일이 존재하지 않음: {path}");
+            return;
+        }
+
+        string jsonText = File.ReadAllText(path);
+        MapDatas loadedMap = JsonUtility.FromJson<MapDatas>(jsonText);
+
+        // 기존 블록 삭제
+        if (parentForBlocks != null)
+        {
+            foreach (Transform child in parentForBlocks)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        // 블록 배치
+        foreach (var block in loadedMap.blocks)
+        {
+            if (block.blockID == blockDataList.data.Length - 1) continue; // 시작 위치 제외
+
+            GameObject prefab = blockDataList.data[block.blockID].prefab;
+            if (prefab == null) continue;
+
+            Vector3 pos = block.position.ToVector3();
+            Quaternion rot = Quaternion.Euler(block.rotation.ToVector3());
+            Instantiate(prefab, pos, rot, parentForBlocks);
+        }
+
+        // 플레이어 배치
+        if (loadedMap.startPosition != null)
+        {
+            Vector3 spawnPos = loadedMap.startPosition.ToVector3();
+            Instantiate(player, spawnPos, Quaternion.identity);
+        }
+    }
+
 
 
 }

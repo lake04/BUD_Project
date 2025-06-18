@@ -36,7 +36,7 @@ public class SceneController : MonoBehaviour
     public void Stage()
     {
         MapManager.Instance.isEditorMode = false;
-
+        MapManager.Instance.isCustom = false;
         CircleEffect.instance.LoadScene(1);
     }
     public void TitleLoad()

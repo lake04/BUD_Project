@@ -1,4 +1,4 @@
-using System.IO;
+ï»¿using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -20,17 +20,29 @@ public class UserMapListUI : MonoBehaviour
 
         if (!Directory.Exists(userMapPath))
         {
-            Debug.LogWarning("À¯Àú ¸Ê Æú´õ ¾øÀ½");
+            Debug.LogWarning("ìœ ì € ë§µ í´ë” ì—†ìŒ");
             return;
         }
         System.IO.DirectoryInfo di = new DirectoryInfo(userMapPath);
 
-        foreach (FileInfo file in di.GetFiles("*.Json"))
+        foreach (FileInfo file in di.GetFiles("*.json"))
         {
-            GameObject go = Instantiate(userMapItemPrefab,pos.transform);
-            go.GetComponentInChildren<Text>().text = file.Name;
-            Debug.Log("ÆÄÀÏ¸í : " + file.Name);
+            string fileName = file.Name; 
+
+            GameObject go = Instantiate(userMapItemPrefab, pos.transform);
+            go.GetComponentInChildren<Text>().text = fileName;
+
+            go.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                PlayerPrefs.SetString("selectedMap", fileName);
+                MapManager.Instance.isEditorMode = false;
+                SceneManager.LoadScene(1);
+                MapManager.Instance.LoadUserMap(fileName);
+                MapManager.Instance.isCustom = true;
+            });
+
+            Debug.Log("íŒŒì¼ëª… : " + fileName);
         }
-       
+
     }
 }
