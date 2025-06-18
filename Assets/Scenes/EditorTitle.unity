@@ -1279,9 +1279,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: EditorHowToPlay, Assembly-CSharp
-        m_MethodName: ClickPop
+      - m_Target: {fileID: 1715502515}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: TitleLoad
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
