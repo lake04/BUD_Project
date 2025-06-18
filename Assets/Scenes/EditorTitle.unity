@@ -1153,6 +1153,50 @@ MonoBehaviour:
   contentParent: {fileID: 338655494}
   userMapItemPrefab: {fileID: 8696072677709656509, guid: 004b114663785e14f9c3299539a72c52, type: 3}
   pos: {fileID: 338655493}
+--- !u!1 &1715502514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1715502516}
+  - component: {fileID: 1715502515}
+  m_Layer: 0
+  m_Name: SceneContrler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1715502515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715502514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46353c2b6289db34ea1edc46c65c1729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1715502516
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715502514}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.736329, y: 77.62818, z: -0.109377585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1745614614
 GameObject:
   m_ObjectHideFlags: 0
@@ -1429,3 +1473,4 @@ SceneRoots:
   - {fileID: 1765056098}
   - {fileID: 1665538303}
   - {fileID: 1480161437}
+  - {fileID: 1715502516}
