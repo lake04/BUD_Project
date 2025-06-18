@@ -10,6 +10,7 @@ public class TitleAndRetry : MonoBehaviour
     float score = 0;
     public GameObject image;
     public Text scoreText;
+    public Text ttext;
 
     public Player player;
     // Start is called before the first frame update
@@ -30,10 +31,21 @@ public class TitleAndRetry : MonoBehaviour
         {
             if (player.isDie)
             {
+                ttext.text = "fail";
+                ttext.color = Color.red;
                 score = -1*player.transform.position.y/10;
                 Invoke("Result", 0.5f);
                 //Result();
                 scoreText.text = "SCORE : "+ Mathf.Floor(score * 100f) / 100f; ;
+            }
+            if (player.isSucc)
+            {
+                ttext.text = "success";
+                ttext.color = Color.white;
+                score = -1 * player.transform.position.y / 10;
+                Invoke("Result", 0.5f);
+                //Result();
+                scoreText.text = "SCORE : " + Mathf.Floor(score * 100f) / 100f; ;
             }
         }
        

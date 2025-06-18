@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 
 
     public bool isDie = false;
+    public bool isSucc = false;
 
     [Header("Singleton")]
     public static Player playerInstance;
@@ -156,6 +157,11 @@ public class Player : MonoBehaviour
                 //transform.position = portal.portal2.position;
             }
         }
-        
+        if (collision.gameObject.CompareTag("End"))
+        {
+            isSucc = true;
+            Destroy(gameObject, 0.3f);
+            gameObject.SetActive(false);
+        }
     }
 }
