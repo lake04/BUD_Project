@@ -2,8 +2,8 @@
     "mapName": "stage-01",
     "mapDesc": "This is a new map.",
     "startPosition": {
-        "x": 0.0,
-        "y": 0.0,
+        "x": 15.0,
+        "y": 150.0,
         "z": 0.0
     },
     "blocks": [

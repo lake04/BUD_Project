@@ -53,7 +53,6 @@ public class SceneController : MonoBehaviour
     }
     public void CustomEdtiorLoad()
     {
-        MapManager.Instance.isEditorMode = true;
         CircleEffect.instance.LoadScene(4);
     }
 
